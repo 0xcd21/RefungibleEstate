@@ -22,7 +22,8 @@ module.exports = {
           'https://kovan.infura.io/v3/69faa0ff70d74c9894ec5cf1a4062ff6'
         );
       },
-      network_id: 42
+      network_id: '*',
+      skipDryRun: true,
     }
   },
   contracts_directory: './src/contracts/',
