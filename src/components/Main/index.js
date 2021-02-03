@@ -20,7 +20,7 @@ class Main extends Component {
           <Route path="/renderLand" component={LandRenderer} />
           <Redirect to="/home" />
         </Switch>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     )
   }

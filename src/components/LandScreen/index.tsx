@@ -10,8 +10,10 @@ import addVoxel from './factories/voxel'
 import addStair from './factories/stair'
 import addPlane from './factories/plane'
 import './main.css';
+import plane from "./factories/plane";
 
-function LandRenderer() {
+function LandRenderer(props: any) {
+    let planeSize = props.planeSize || 10
     const divRef = useRef()
     let camera: any // THREE.Camera
     let scene: THREE.Scene = {} as THREE.Scene
@@ -42,7 +44,7 @@ function LandRenderer() {
     let state: State = { scene, render, objects, cubeMaterials, mirrorX, modalOpen, selectedVoxel, selectedBlock, stairHalf, stairFacing }
 
 
-    function init() {
+    function init(planeSize: number) {
         camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000)
         camera.position.set(500, 800, 1300)
         camera.lookAt(0, 0, 0)
@@ -69,7 +71,7 @@ function LandRenderer() {
         }, {})
 
         // grid
-        const gridHelper = new THREE.GridHelper(1000, 20)
+        const gridHelper = new THREE.GridHelper(1000, planeSize)
         state.scene.add(gridHelper)
 
         raycaster = new THREE.Raycaster()
@@ -273,16 +275,28 @@ function LandRenderer() {
         //     renderer.render(scene, camera);
         // };
         // animate();
-        init()
+        init(planeSize)
         render()
-        GUI(state)
+        // GUI(state)
     }, [])
     return (
         <div id="mainContainer" className="mainContainer">
-            <div id="react" className="react"></div>
-
-            <div id="canvas" className="canvas"></div>
-
+            <div id="form" className="form">
+                <div className="">
+                    <fieldset>
+                        <input type="text" size={20} placeholder="Enter Square footage" />
+                        {/* <span style={{ color: "red" }}>Enter SqFt</span> */}
+                        <br />
+                        <br />
+                        <br />
+                        <button type="button" placeholder="Phone" title="Show Demo">
+                            <text>Show Demo</text>
+                        </button>
+                        <br />
+                    </fieldset>
+                </div>
+            </div>
+            <div id="canvas" className="react"></div>
         </div>
     )
 }
