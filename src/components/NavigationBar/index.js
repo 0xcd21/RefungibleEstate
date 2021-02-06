@@ -34,6 +34,10 @@ const NavigationBar = (props) => {
               {/* <NavLink className="navbar-colors" href="/create/land">Create land</NavLink> */}
               <NavLink className="navbar-colors" href="/renderLand">Create land</NavLink>
             </NavItem>
+            <NavItem>
+              {/* <NavLink className="navbar-colors" href="/create/land">Create land</NavLink> */}
+              <NavLink className="navbar-colors" href="/aavegotchi">Aavegotchi</NavLink>
+            </NavItem>
           </Nav>
         </Collapse>
       </Navbar>

@@ -180,7 +180,7 @@ class CreateLand extends Component {
             <FormGroup row>
               <Col md={{ size: 10, offset: 2 }}>
                 <Button type="submit" color="danger">
-                  Create request
+                  Create request/ Demo Your Land
                 </Button>
               </Col>
             </FormGroup>

@@ -58,22 +58,34 @@ function Home(props) {
   const slides = items.map((item) => {
     return (
       <CarouselItem
+        className="caption"
         onExiting={() => setAnimating(true)}
         onExited={() => setAnimating(false)}
         key={item.src}
       >
         <img src={item.src} alt={item.altText} />
-        <CarouselCaption captionText={item.caption} captionHeader={item.caption} />
+        {/* <div className="carouselText">
+          <div id="container">
+            <h2>{item.caption}</h2>
+          </div>
+        </div> */}
+        <div className="">
+          <CarouselCaption
+            captionText={item.caption} 
+            captionHeader={item.caption}
+            // className="text-danger"
+          />
+        </div>
       </CarouselItem>
     );
   });
 
   return (
     <div>
-      <div className="container-fluid">
+      <div id="mainContainer" className="container-fluid">
         <div className="row">
           <main role="main" className="col-12 d-flex p-0 main text-center">
-            <div className="content mt-5">
+            <div id="titleContent" className="content">
               <h1>Welcome to MarketMake</h1>
               <p>
                 With new games and updates, join one of the most amazing community and
@@ -82,10 +94,9 @@ function Home(props) {
             </div>
           </main>
         </div>
-        <div className="row mt-5 p-5 gallery">
+        <div id="gallery" className="row mt-5 p-5 gallery">
+          <br />
           <h3>Gallery</h3>
-          <br />
-          <br />
           <br />
           <main role="main" className="col-12 d-flex p-0 gallery-main text-center">
             <div className="content">

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import * as THREE from 'three'
 import { OrbitControls } from './jsm/controls/OrbitControls'
@@ -10,8 +10,12 @@ import addVoxel from './factories/voxel'
 import addStair from './factories/stair'
 import addPlane from './factories/plane'
 import './main.css';
+import plane from "./factories/plane";
+import localstorage from "./utils/localstorage";
 
-function LandRenderer() {
+function LandRenderer(props: any) {
+    const innerRef = useRef<any>()
+    let planeSize = props.planeSize || 10
     const divRef = useRef()
     let camera: any // THREE.Camera
     let scene: THREE.Scene = {} as THREE.Scene
@@ -35,14 +39,14 @@ function LandRenderer() {
     let touchTime: number
     let touchX: number
     let touchY: number
-
+    let canvasEl: Element
     // Record mouse movement
     const mouseMovement = { x: 0, y: 0, moveX: 0, moveY: 0 }
 
     let state: State = { scene, render, objects, cubeMaterials, mirrorX, modalOpen, selectedVoxel, selectedBlock, stairHalf, stairFacing }
+    const [sqft, setSqft] = useState<number>()
 
-
-    function init() {
+    function init(planeSize: number | undefined) {
         camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000)
         camera.position.set(500, 800, 1300)
         camera.lookAt(0, 0, 0)
@@ -69,7 +73,7 @@ function LandRenderer() {
         }, {})
 
         // grid
-        const gridHelper = new THREE.GridHelper(1000, 20)
+        const gridHelper = new THREE.GridHelper(1000, planeSize)
         state.scene.add(gridHelper)
 
         raycaster = new THREE.Raycaster()
@@ -104,7 +108,9 @@ function LandRenderer() {
         controls.addEventListener('change', render)
 
         const canvasEl = document.querySelector('#canvas') as Element
-        canvasEl.appendChild(canvas.domElement)
+        let canDom = canvas.domElement
+        canDom.id = "innerClass"
+        canvasEl.appendChild(canDom)
 
         // Events
         document.addEventListener('mousemove', onDocumentMouseMove)
@@ -273,16 +279,77 @@ function LandRenderer() {
         //     renderer.render(scene, camera);
         // };
         // animate();
-        init()
+        init(planeSize)
         render()
-        GUI(state)
+        // GUI(state)
     }, [])
+
+    function onSqftClick(event) {
+        event.preventDefault()
+        // innerRef.current.innerHTML = ""
+        const canvasEl = document.querySelector('#innerClass') as Element
+        canvasEl.remove()
+        init(sqft)
+        // render()
+    }
+
+    function onSavetoLocal() {
+        localstorage.save(state.objects)
+    }
+
+    function onChange(event: ChangeEvent<HTMLInputElement>) {
+        console.log(event.target.value)
+        setSqft(Number(event.target.value.replace(/\D/, '')))
+    }
+
+    function fetchLocal(event){
+        event.preventDefault()
+        localstorage.fetchAll()
+        console.log(localstorage.fetchAll())
+    }
     return (
         <div id="mainContainer" className="mainContainer">
-            <div id="react" className="react"></div>
+            <div id="form" className="form">
+                <div className="">
+                    <fieldset>
+                        <br />
+                        <input
+                            // ref="sqftinput"
+                            onKeyPress={(event) => {
+                                if (!/[0-9]/.test(event.key)) {
+                                    event.preventDefault();
+                                }
+                            }}
+                            type="text"
+                            size={20}
+                            placeholder="Enter Square footage"
+                            onChange={onChange}
+                        />
+                        {/* <span style={{ color: "red" }}>Enter SqFt</span> */}
+                        <br />
+                        <br />
+                        <button type="button" placeholder="Phone" title="Show Demo" onClick={onSqftClick}>
+                            <text>Show Demo</text>
+                        </button>
+                        <br />
+                        <br />
+                        <button type="button" placeholder="Phone" title="Show Demo" onClick={onSavetoLocal}>
+                            <text>Save To local</text>
+                        </button>
+                        <br />
+                        <br />
+                        <button type="button" placeholder="Phone" title="Show Demo" onClick={fetchLocal}>
+                            <text>Fetch from local and check console</text>
+                        </button>
+                        <br />
+                    </fieldset>
+                </div>
+            </div>
+            <div id="canvas" className="react">
+                {/* <div ref={innerRef} id="innerCanvas" className="innerCanvas">
 
-            <div id="canvas" className="canvas"></div>
-
+                </div> */}
+            </div>
         </div>
     )
 }
