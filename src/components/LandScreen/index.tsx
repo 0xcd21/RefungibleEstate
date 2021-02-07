@@ -288,7 +288,7 @@ function LandRenderer(props: any) {
     }, [])
 
     useEffect(() => {
-        getTokenDetails().then(res => setSqft(res.sqftArea));
+        if (tokenId) getTokenDetails().then(res => setSqft(res.sqftArea));
 
         // var scene = new THREE.Scene();
         // var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -313,11 +313,13 @@ function LandRenderer(props: any) {
     }, [tokenId])
 
     async function getTokenDetails() {
-        const res = await fetch('https://refungible-estate1.herokuapp.com/api/request/search/land?tokenId=1', {
-            method: 'post'
-        });
+        if (tokenId) {
+            const res = await fetch(`https://refungible-estate1.herokuapp.com/api/request/search/land?tokenId=${tokenId}`, {
+                method: 'post'
+            });
 
-        return await res.json();
+            return await res.json();
+        }
     }
 
     function onSqftClick(event) {
@@ -356,23 +358,19 @@ function LandRenderer(props: any) {
                                     event.preventDefault();
                                 }
                             }}
-                            disabled
                             type="text"
                             size={20}
-                            placeholder="Square footage"
-                            value={sqft}
+                            placeholder="Enter Token Id"
+                            onChange={onChange}
                         />
-                        {/* <span style={{ color: "red" }}>Enter SqFt</span> */}
                         <br />
+                        {/* <span style={{ color: "red" }}>Enter SqFt</span> */}
                         <br />
                         <button type="button" placeholder="Phone" title="Show Demo" onClick={onSqftClick}>
                             <text>Show Demo</text>
                         </button>
                         <br />
                         <br />
-                        <button type="button" placeholder="Phone" title="Show Demo" onClick={onSavetoLocal}>
-                            <text>Save To local</text>
-                        </button>
                         <input
                             // ref="sqftinput"
                             onKeyPress={(event) => {
@@ -380,11 +378,17 @@ function LandRenderer(props: any) {
                                     event.preventDefault();
                                 }
                             }}
+                            disabled
                             type="text"
                             size={20}
-                            placeholder="Enter Token Id"
-                            onChange={onChange}
+                            placeholder="Square footage"
+                            value={`Area is ${sqft || '?'} sq.ft`}
                         />
+                        <br />
+                        <br />
+                        <button type="button" placeholder="Phone" title="Show Demo" onClick={onSavetoLocal}>
+                            <text>Save To local</text>
+                        </button>
                         <br />
                         <br />
                         <button type="button" placeholder="Phone" title="Show Demo" onClick={fetchLocal}>
