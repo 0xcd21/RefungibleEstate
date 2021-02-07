@@ -287,6 +287,39 @@ function LandRenderer(props: any) {
         // GUI(state)
     }, [])
 
+    useEffect(() => {
+        getTokenDetails().then(res => setSqft(res.sqftArea));
+
+        // var scene = new THREE.Scene();
+        // var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        // var renderer = new THREE.WebGLRenderer();
+        // renderer.setSize(window.innerWidth, window.innerHeight);
+        // // document.body.appendChild( renderer.domElement );
+        // // use ref as a mount point of the Three.js scene instead of the document.body
+        // divRef.current.appendChild(renderer.domElement);
+        // var geometry = new THREE.BoxGeometry(1, 1, 1);
+        // var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+        // var cube = new THREE.Mesh(geometry, material);
+        // scene.add(cube);
+        // camera.position.z = 2;
+        // var animate = function () {
+        //     requestAnimationFrame(animate);
+        //     cube.rotation.x += 0.01;
+        //     cube.rotation.y += 0.01;
+        //     renderer.render(scene, camera);
+        // };
+        // animate();
+        // GUI(state)
+    }, [tokenId])
+
+    async function getTokenDetails() {
+        const res = await fetch('https://refungible-estate1.herokuapp.com/api/request/search/land?tokenId=1', {
+            method: 'post'
+        });
+
+        return await res.json();
+    }
+
     function onSqftClick(event) {
         event.preventDefault()
         // innerRef.current.innerHTML = ""
@@ -302,7 +335,7 @@ function LandRenderer(props: any) {
 
     function onChange(event: ChangeEvent<HTMLInputElement>) {
         console.log(event.target.value)
-        setSqft(Number(event.target.value.replace(/\D/, '')))
+        setTokenId(Number(event.target.value.replace(/\D/, '')))
     }
 
     function fetchLocal(event) {
@@ -323,10 +356,11 @@ function LandRenderer(props: any) {
                                     event.preventDefault();
                                 }
                             }}
+                            disabled
                             type="text"
                             size={20}
-                            placeholder="Enter Square footage"
-                            onChange={onChange}
+                            placeholder="Square footage"
+                            value={sqft}
                         />
                         {/* <span style={{ color: "red" }}>Enter SqFt</span> */}
                         <br />
