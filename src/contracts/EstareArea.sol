@@ -1,6 +1,6 @@
 pragma solidity >=0.5.0 <0.8.0;
 
-import "@chainlink/contracts/v0.6/ChainlinkClient.sol";
+import "@chainlink/contracts/src/v0.6/ChainlinkClient.soll";
 
 contract EstateArea is ChainlinkClient {
     address private oracle;
