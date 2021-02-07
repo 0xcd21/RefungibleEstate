@@ -150,12 +150,12 @@ class GotchiForm extends Component {
         return (
             <div className="container-fluid">
                 <div className="row forming">
-                    <Form onSubmit={this.handleSubmit} className="mt-5 form-container col-12 col-md-9">
+                    <Form onSubmit={this.handleSubmit} className="mt-5 form-container col-12">
                         <h2 className="text-center">Gotchi</h2>
                         <br />
                         <FormGroup row>
                             <Label htmlFor="landname" md={2}>NFTID</Label>
-                            <Col md={10}>
+                            <Col md={8}>
                                 <Input className='input' type="text" id="id" name="id"
                                     placeholder="Enter nft id"
                                     value={this.state.id}
@@ -164,7 +164,7 @@ class GotchiForm extends Component {
                         </FormGroup>
                         <FormGroup row>
                             <Label htmlFor="symbol" md={2}>Block id</Label>
-                            <Col md={10}>
+                            <Col md={8}>
                                 <Input className='input' type="text" id="blockId" name="blockId"
                                     placeholder="Enter block id"
                                     value={this.state.blockId}
@@ -173,7 +173,7 @@ class GotchiForm extends Component {
                         </FormGroup>
                         <FormGroup row>
                             <Label htmlFor="symbol" md={2}>Gotchi name</Label>
-                            <Col md={10}>
+                            <Col md={8}>
                                 <Input className='input' type="text" id="name" name="name"
                                     placeholder="Enter gotchi name"
                                     value={this.state.name}
@@ -182,7 +182,7 @@ class GotchiForm extends Component {
                             </Col>
                         </FormGroup>
                         <FormGroup row>
-                            <Col md={{ size: 10, offset: 2 }}>
+                            <Col md={{ size: 8, offset: 2 }}>
                                 <Button onClick={() => this.props.history.push('/gotchi')} color="danger">
                                     Set gotchi
                 </Button>
