@@ -15,7 +15,8 @@ import localstorage from "./utils/localstorage";
 
 function LandRenderer(props: any) {
     const innerRef = useRef<any>()
-    let planeSize = props.planeSize || 10
+    let standardPlaneSize = 20
+    let planeToBoxRatio: number = 1;
     const divRef = useRef()
     let camera: any // THREE.Camera
     let scene: THREE.Scene = {} as THREE.Scene
@@ -46,7 +47,8 @@ function LandRenderer(props: any) {
     let state: State = { scene, render, objects, cubeMaterials, mirrorX, modalOpen, selectedVoxel, selectedBlock, stairHalf, stairFacing }
     const [sqft, setSqft] = useState<number>()
 
-    function init(planeSize: number | undefined) {
+    function init(planeSize: number | undefined = 20) {
+        planeToBoxRatio = standardPlaneSize / planeSize
         camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000)
         camera.position.set(500, 800, 1300)
         camera.lookAt(0, 0, 0)
@@ -55,7 +57,7 @@ function LandRenderer(props: any) {
         state.scene.background = new THREE.Color(0xf0f0f0)
 
         // roll-over helpers
-        const rollOverGeo = new THREE.BoxBufferGeometry(50, 50, 50)
+        const rollOverGeo = new THREE.BoxBufferGeometry(50 * planeToBoxRatio, 50 * planeToBoxRatio, 50 * planeToBoxRatio)
         rollOverMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000, opacity: 0.5, transparent: true })
         rollOverMesh = new THREE.Mesh(rollOverGeo, rollOverMaterial)
         rollOverMesh.position.set(9999, 9999, 9999)
@@ -164,12 +166,11 @@ function LandRenderer(props: any) {
 
         const { clientX, clientY } = event
         const { innerWidth, innerHeight } = window
-        mouse.set((clientX / innerWidth) * 2 - 1, -(clientY / innerHeight) * 2 + 1)
+        mouse.set((clientX / innerWidth) * 1.5 - 1, -(clientY / innerHeight) * 1.5 + 1)
 
         raycaster.setFromCamera(mouse, camera)
 
         let intersects = raycaster.intersectObjects(objects as THREE.Object3D[])
-
         if (intersects.length > 0 && intersects[0].face) {
             const position = getIntersectPosition(intersects[0])
             rollOverMesh.position.copy(position)
@@ -196,11 +197,12 @@ function LandRenderer(props: any) {
         const clientY = event.clientY || touchY
 
         const { innerWidth, innerHeight } = window
-        mouse.set((clientX / innerWidth) * 2 - 1, -(clientY / innerHeight) * 2 + 1)
+        mouse.set((clientX / innerWidth) * 1.5 - 1, -(clientY / innerHeight) * 1.5 + 1)
 
         raycaster.setFromCamera(mouse, camera)
 
         let intersects = raycaster.intersectObjects(objects as THREE.Object3D[])
+        console.log('intersection points ::', intersects)
 
         if (intersects.length > 0) {
             // GET MIRROR
@@ -225,7 +227,7 @@ function LandRenderer(props: any) {
                 const selectedMaterial = state.cubeMaterials[state.selectedBlock]
                 const position = getIntersectPosition(intersect)
                 if (state.selectedVoxel === 'block') {
-                    addVoxel(state, position, selectedMaterial, state.selectedBlock)
+                    addVoxel(state, position, selectedMaterial, state.selectedBlock, planeToBoxRatio)
                 } else {
                     addStair(state, position, `oak_stairs[facing=${state.stairFacing},half=${state.stairHalf}]`)
                 }
@@ -255,7 +257,7 @@ function LandRenderer(props: any) {
     const getIntersectPosition = (intersect: THREE.Intersection): THREE.Vector3 => {
         // @ts-ignore
         const face = intersect.face as THREE.Face3
-        intersect.point.add(face.normal).divideScalar(50).floor().multiplyScalar(50).addScalar(25)
+        intersect.point.add(face.normal).divideScalar(50 * planeToBoxRatio).floor().multiplyScalar(50 * planeToBoxRatio).addScalar(25 * planeToBoxRatio)
         return intersect.point
     }
 
@@ -279,7 +281,7 @@ function LandRenderer(props: any) {
         //     renderer.render(scene, camera);
         // };
         // animate();
-        init(planeSize)
+        init(standardPlaneSize)
         render()
         // GUI(state)
     }, [])
@@ -302,7 +304,7 @@ function LandRenderer(props: any) {
         setSqft(Number(event.target.value.replace(/\D/, '')))
     }
 
-    function fetchLocal(event){
+    function fetchLocal(event) {
         event.preventDefault()
         localstorage.fetchAll()
         console.log(localstorage.fetchAll())
