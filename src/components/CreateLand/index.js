@@ -4,12 +4,15 @@ import { Button, Form, FormGroup, Label, Input, Col, FormFeedback, Spinner } fro
 
 import './style.css';
 
+// import CreateLandNft from '../abis/CreateLandNft.json'
+
 
 class CreateLand extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
+      contract: null,
       account: '',
       name: '',
       loading: true,
@@ -52,13 +55,13 @@ class CreateLand extends Component {
     // const networkData = Token.networks[networkId]
 
     // if (networkData) {
-    //   const film = new web3.eth.Contract(Token.abi, networkData.address)
-    //   this.setState({ film })
+    //   const contract = new web3.eth.Contract(CreateLandNft.abi, networkData.address)
+    //   this.setState({ contract })
 
     this.setState({ loading: false })
 
     // } else {
-    //   window.alert("FilmFactory contract is not deployed to detected network")
+    //   window.alert("Contract is not deployed to detected network")
     // }
   }
 
@@ -86,15 +89,10 @@ class CreateLand extends Component {
       return
     }
 
-    // this.state.film.methods.createFilm(
-    //   this.state.filmname.trim(),
-    //   Number(this.state.budget),
-    //   this.state.directorname.trim(),
-    //   posterIpfs.path,
-    //   scriptIpfs.path,
-    //   this.state.description,
-    //   Number(this.state.interestrate),
-    //   this.state.category
+    // this.state.contract.methods._mint(
+    //   this.state.name
+    //   this.state.symbol,
+    //   1
     // ).send({ from: this.state.account })
     //   .once('receipt', (receipt) => {
     //     this.setState({ loading: false, loadingMessage: '' })
@@ -180,7 +178,7 @@ class CreateLand extends Component {
             <FormGroup row>
               <Col md={{ size: 10, offset: 2 }}>
                 <Button type="submit" color="danger">
-                  Create request/ Demo Your Land
+                  Create land
                 </Button>
               </Col>
             </FormGroup>

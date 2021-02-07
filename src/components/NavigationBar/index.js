@@ -32,7 +32,10 @@ const NavigationBar = (props) => {
             </NavItem>
             <NavItem>
               {/* <NavLink className="navbar-colors" href="/create/land">Create land</NavLink> */}
-              <NavLink className="navbar-colors" href="/renderLand">Create land</NavLink>
+              <NavLink className="navbar-colors" href="/renderLand">View land</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink className="navbar-colors" href="/create/land">Create land</NavLink>
             </NavItem>
             <NavItem>
               {/* <NavLink className="navbar-colors" href="/create/land">Create land</NavLink> */}
