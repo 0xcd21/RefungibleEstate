@@ -14,10 +14,17 @@ contract NftToken is ERC721 {
         string memory _symbol,
         address _owner,
         uint256 id
-    ) public ERC721("Land", "LND") {
+    )
+        public
+        ERC721(
+            string(abi.encodePacked("Land:", _name)),
+            string(abi.encodePacked("LND", _symbol))
+        )
+    {
         nftName = _name;
         nftSymbol = _symbol;
         owner = _owner;
+
         _mint(_owner, id);
     }
 
