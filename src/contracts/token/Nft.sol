@@ -18,7 +18,7 @@ contract NftToken is ERC721 {
         public
         ERC721(
             string(abi.encodePacked("Land:", _name)),
-            string(abi.encodePacked("LND", _symbol))
+            string(abi.encodePacked("LND:", _symbol))
         )
     {
         nftName = _name;
