@@ -22,7 +22,7 @@ const NavigationBar = (props) => {
     <div>
       <Navbar className="navbar navbar-colors" expand="md">
         <NavbarBrand className="navbar-colors" href="/">
-          <img src={logo} className="logo-app" alt="logo" />
+          <NavLink className="navbar-colors" href="/home">Refungible Estate</NavLink>
         </NavbarBrand>
         <NavbarToggler className="navbar-toggler-colors" onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>

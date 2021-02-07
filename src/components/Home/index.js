@@ -71,9 +71,9 @@ function Home(props) {
         </div> */}
         <div className="">
           <CarouselCaption
-            captionText={item.caption} 
+            captionText={item.caption}
             captionHeader={item.caption}
-            // className="text-danger"
+          // className="text-danger"
           />
         </div>
       </CarouselItem>
@@ -86,7 +86,7 @@ function Home(props) {
         <div className="row">
           <main role="main" className="col-12 d-flex p-0 main text-center">
             <div id="titleContent" className="content">
-              <h1>Welcome to MarketMake</h1>
+              <h1>Welcome to Refungible Estate</h1>
               <p>
                 With new games and updates, join one of the most amazing community and
                 start crafting today.
