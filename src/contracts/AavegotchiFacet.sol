@@ -8,7 +8,7 @@ contract TokenFarm {
     GhostToken public ghstToken;
 
     address[] public stakers;
-    mapping(address => uint) public stakingBalance;
+    mapping(address => uint256) public stakingBalance;
     mapping(address => bool) public hasStaked;
     mapping(address => bool) public isStaking;
 
@@ -17,7 +17,7 @@ contract TokenFarm {
         owner = msg.sender;
     }
 
-    function stakeTokens(uint _amount) public {
+    function stakeTokens(uint256 _amount) public {
         // Require amount greater than 0
         require(_amount > 0, "amount cannot be 0");
 
@@ -28,7 +28,7 @@ contract TokenFarm {
         stakingBalance[msg.sender] = stakingBalance[msg.sender] + _amount;
 
         // Add user to stakers array *only* if they haven't staked already
-        if(!hasStaked[msg.sender]) {
+        if (!hasStaked[msg.sender]) {
             stakers.push(msg.sender);
         }
 
@@ -40,7 +40,7 @@ contract TokenFarm {
     // Unstaking Tokens (Withdraw)
     function unstakeTokens() public {
         // Fetch staking balance
-        uint balance = stakingBalance[msg.sender];
+        uint256 balance = stakingBalance[msg.sender];
 
         // Require amount greater than 0
         require(balance > 0, "staking balance cannot be 0");
@@ -61,10 +61,10 @@ contract TokenFarm {
         require(msg.sender == owner, "caller must be the owner");
 
         // Issue tokens to all stakers
-        for (uint i=0; i<stakers.length; i++) {
+        for (uint256 i = 0; i < stakers.length; i++) {
             address recipient = stakers[i];
-            uint balance = stakingBalance[recipient];
-            if(balance > 0) {
+            uint256 balance = stakingBalance[recipient];
+            if (balance > 0) {
                 ghstToken.transfer(recipient, balance);
             }
         }
