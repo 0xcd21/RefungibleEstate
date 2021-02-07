@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity >=0.6.12;
+pragma solidity >=0.6.0;
 
-import {OwnableERC20Token as ERC20} from "./token/OwnableERC20Token.sol";
+import {OwnableERC20Token as ERC20} from "./token/OwnableERC20TOken.sol";
 import {
     OwnableERC20Token as OwnableERC20Token
-} from "./token/OwnableERC20Token.sol";
+} from "./token/OwnableERC20TOken.sol";
 
 contract DelegationController {
     struct DelegationDetails {
