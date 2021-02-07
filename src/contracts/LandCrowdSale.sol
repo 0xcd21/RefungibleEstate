@@ -1,7 +1,7 @@
 pragma solidity >=0.6.0 <0.7.5;
 
-import "./ShareToken.sol";
-import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC721/IERC721.sol";
+import "./token/SharesToken.sol";
+//import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC721/IERC721.sol";
 
 contract LandCrowdSale {
     address payable public vault;
