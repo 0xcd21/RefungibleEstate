@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import Web3 from 'web3'
-import DaiToken from '../../abis/DaiToken.json'
-import TokenFarm from '../../abis/TokenFarm.json'
+import GhostToken from '../../abis/GhostToken.json'
+import AavegotchiFacet from '../../abis/AavegotchiFacet.json'
 import Main from './Main'
+
 import './App.css'
 
 class Aavegotchi extends Component {
@@ -20,28 +21,29 @@ class Aavegotchi extends Component {
 
     const networkId = await web3.eth.net.getId()
 
-    // Load DaiToken
-    const daiTokenData = DaiToken.networks[networkId]
-    if(daiTokenData) {
-      const daiToken = new web3.eth.Contract(DaiToken.abi, daiTokenData.address)
-      this.setState({ daiToken })
-      let daiTokenBalance = await daiToken.methods.balanceOf(this.state.account).call()
-      this.setState({ daiTokenBalance: daiTokenBalance.toString() })
+    // Load GhostToken
+    const ghtsTokenData = GhostToken.networks[networkId]
+    //console.log(GhostToken.abi)
+    if (ghtsTokenData) {
+      const ghostToken = new web3.eth.Contract(GhostToken.abi, ghtsTokenData.address)
+      this.setState({ ghostToken })
+      let ghostTokenBalance = await ghostToken.methods.balanceOf(this.state.account).call()
+      this.setState({ ghostTokenBalance: ghostTokenBalance.toString() })
     } else {
-      window.alert('DaiToken contract not deployed to detected network.')
+      window.alert('GhostToken contract not deployed to detected network.')
     }
 
-    // Load TokenFarm
-    const tokenFarmData = TokenFarm.networks[networkId]
-    if(tokenFarmData) {
-      const tokenFarm = new web3.eth.Contract(TokenFarm.abi, tokenFarmData.address)
-      this.setState({ tokenFarm })
-      let stakingBalance = await tokenFarm.methods.stakingBalance(this.state.account).call()
-      let ghstEarned = await tokenFarm.methods.ghstEarned(this.state.account).call()
+    // Load AavegotchiFacet
+    const aavegotchiData = AavegotchiFacet.networks[networkId]
+    if(aavegotchiData) {
+      const aavegotchiFacet = new web3.eth.Contract(AavegotchiFacet.abi, aavegotchiData.address)
+      this.setState({ aavegotchiFacet })
+      let stakingBalance = await aavegotchiFacet.methods.stakingBalance(this.state.account).call()
+      let ghstEarned = await aavegotchiFacet.methods.ghstEarned(this.state.account).call()
 
       this.setState({ stakingBalance: stakingBalance.toString(), ghstEarned: ghstEarned.toString()})
     } else {
-      window.alert('TokenFarm contract not deployed to detected network.')
+      window.alert('AavegotchiFacet contract not deployed to detected network.')
     }
 
     this.setState({ loading: false })
@@ -60,10 +62,20 @@ class Aavegotchi extends Component {
     }
   }
 
+  // stakeTokens = (amount) => {
+  //   this.setState({ loading: true })
+  //   this.state.daiToken.methods.approve(this.state.tokenFarm._address, amount).send({ from: this.state.account }).on('transactionHash', (hash) => {
+  //     this.state.tokenFarm.methods.stakeTokens(amount).send({ from: this.state.account }).on('transactionHash', (hash) => {
+  //       this.setState({ loading: false })
+  //     })
+  //   })
+  // }
+
   stakeTokens = (amount) => {
+    console.log(this.state.aavegotchiFacet.address);
     this.setState({ loading: true })
-    this.state.daiToken.methods.approve(this.state.tokenFarm._address, amount).send({ from: this.state.account }).on('transactionHash', (hash) => {
-      this.state.tokenFarm.methods.stakeTokens(amount).send({ from: this.state.account }).on('transactionHash', (hash) => {
+    this.state.ghostToken.methods.approve(this.state.aavegotchiFacet.address, amount).send({ from: this.state.account }).on('transactionHash', (hash) => {
+      this.state.aavegotchiFacet.methods.stakeTokens(amount).send({ from: this.state.account }).on('transactionHash', (hash) => {
         this.setState({ loading: false })
       })
     })
@@ -71,21 +83,21 @@ class Aavegotchi extends Component {
 
   unstakeTokens = (amount) => {
     this.setState({ loading: true })
-    this.state.tokenFarm.methods.unstakeTokens().send({ from: this.state.account }).on('transactionHash', (hash) => {
+    this.state.aavegotchiFacet.methods.unstakeTokens().send({ from: this.state.account }).on('transactionHash', (hash) => {
       this.setState({ loading: false })
     })
   }
 
   mintToken = () => {
     this.setState({ loading: true })
-    this.state.daiToken.methods.mintTo().send({ from: this.state.account }).on('transactionHash', (hash) => {
+    this.state.ghostToken.methods.mintTo().send({ from: this.state.account }).on('transactionHash', (hash) => {
       this.setState({ loading: false })
     })
   }
 
   issueTokens = () => {
     this.setState({ loading: true })
-    this.state.tokenFarm.methods.issueTokens().send({ from: this.state.account }).on('transactionHash', (hash) => {
+    this.state.aavegotchiFacet.methods.issueTokens().send({ from: this.state.account }).on('transactionHash', (hash) => {
       this.setState({ loading: false })
     })
   }
@@ -94,9 +106,9 @@ class Aavegotchi extends Component {
     super(props)
     this.state = {
       account: '0x0',
-      daiToken: {},
-      tokenFarm: {},
-      daiTokenBalance: '0',
+      GhostToken: {},
+      AavegotchiFacet: {},
+      ghostTokenBalance: '0',
       ghstEarned: '0',
       stakingBalance: '0',
       loading: true
@@ -109,7 +121,7 @@ class Aavegotchi extends Component {
       content = <p id="loader" className="text-center">Loading...</p>
     } else {
       content = <Main
-        daiTokenBalance={this.state.daiTokenBalance}
+        ghostTokenBalance={this.state.ghostTokenBalance}
         stakingBalance={this.state.stakingBalance}
         ghstEarned={this.state.ghstEarned}
         stakeTokens={this.stakeTokens}

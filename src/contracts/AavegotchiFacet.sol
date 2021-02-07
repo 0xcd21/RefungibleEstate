@@ -2,7 +2,7 @@ pragma solidity >=0.6.0 <0.7.5;
 
 import "./GhstToken.sol";
 
-contract TokenFarm {
+contract AavegotchiFacet {
     string public name = "Dapp Token Farm";
     address public owner;
     GhostToken public ghstToken;
@@ -11,6 +11,8 @@ contract TokenFarm {
     mapping(address => uint) public stakingBalance;
     mapping(address => bool) public hasStaked;
     mapping(address => bool) public isStaking;
+    mapping(address => uint) public ghstEarned;
+
 
     constructor(GhostToken _ghstToken) public {
         ghstToken = _ghstToken;
@@ -66,6 +68,7 @@ contract TokenFarm {
             uint balance = stakingBalance[recipient];
             if(balance > 0) {
                 ghstToken.transfer(recipient, balance);
+                ghstEarned[recipient] = ghstEarned[recipient] + balance;
             }
         }
     }

@@ -7,6 +7,8 @@ import CreateLand from '../CreateLand'
 import NavigationBar from '../NavigationBar'
 import LandRenderer from '../LandScreen'
 import Aavegotchi from '../Aavegotchi'
+import SummonGotchi from '../Aavegotchi/gotchiForm'
+//import AaveGotchiStake from '../Aavegotchi/aavegotchiStake'
 
 
 class Main extends Component {
@@ -20,6 +22,8 @@ class Main extends Component {
           <Route path="/create/land" component={CreateLand} />
           <Route path="/renderLand" component={LandRenderer} />
           <Route path="/aavegotchi" component={Aavegotchi} />
+          <Route path="/summonGotchi" component={SummonGotchi} />
+          {/* <Route path="/stake" component={AaveGotchiStake} /> */}
           <Redirect to="/home" />
         </Switch>
         {/* <Footer /> */}

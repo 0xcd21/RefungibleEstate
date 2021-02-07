@@ -2,7 +2,7 @@ pragma solidity >=0.6.2 <0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
-contract AavegotchiNFT is ERC721{ 
+contract Aavegotchi is ERC721{ 
     
     struct Aavegotchi {
         uint gotchiCategoryId;

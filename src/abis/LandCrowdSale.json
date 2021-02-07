@@ -17,7 +17,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -86,7 +87,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -105,7 +107,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -124,7 +127,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -148,7 +152,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -212,7 +217,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -281,7 +287,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -294,7 +301,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -355,7 +363,8 @@
       "name": "buyShare",
       "outputs": [],
       "stateMutability": "payable",
-      "type": "function"
+      "type": "function",
+      "payable": true
     },
     {
       "inputs": [
@@ -10971,12 +10980,13 @@
     "42": {
       "events": {},
       "links": {},
-      "address": "0xA621a980f5eC5C946eEe4B2b54aCe8E01A5a72F6",
-      "transactionHash": "0x07942a87017f8d51285c83f0428b46c0ac427b3c671b12a1739144ae3108127c"
+      "address": "0x8Cdb83A1ebE0087240be77c4cE74fc4EB522a411",
+      "transactionHash": "0x1d14f65d0e76b91726b5fdf54fb3a372ff87ee600e07696ba21aaedde6cf662b"
     }
   },
   "schemaVersion": "3.3.3",
-  "updatedAt": "2021-02-06T21:40:37.791Z",
+  "updatedAt": "2021-02-07T09:38:37.355Z",
+  "networkType": "ethereum",
   "devdoc": {
     "methods": {}
   },

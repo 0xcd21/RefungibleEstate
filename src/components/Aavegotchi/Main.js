@@ -1,12 +1,16 @@
 import React, { Component } from 'react'
 import ghst from './ghst.png'
+import militaryGotchi from './militaryGotchi.png'
+import portolGif from './portal.gif'
+import { Link } from 'react-router-dom'
+import SummonGotchi from './gotchiForm.js'
+
 
 class Main extends Component {
 
   render() {
     return (
       <div id="content" className="mt-3">
-        <img src={"./porto;.svg"}/>
         <table className="table table-borderless text-muted text-center">
           <thead>
             <tr>
@@ -36,7 +40,7 @@ class Main extends Component {
               <div>
                 <label className="float-left"><b>Stake Tokens</b></label>
                 <span className="float-right text-muted">
-                  Balance: {window.web3.utils.fromWei(this.props.daiTokenBalance, 'Ether')}
+                  Balance: {window.web3.utils.fromWei(this.props.ghostTokenBalance, 'Ether')}
                 </span>
               </div>
               <div className="input-group mb-4">
@@ -81,7 +85,10 @@ class Main extends Component {
               this.props.issueToken()
             }}>
             Issue Token
-          </button>
+          </button>   
+          <Link to={'SummonGotchi'}>
+            <button > Summon </button>
+          </Link>       
       </div>
     );
   }
