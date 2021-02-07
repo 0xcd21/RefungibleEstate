@@ -3,22 +3,19 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Spinner, Button, Form, FormGroup, Label, Input  } from 'reactstrap';
 
-import Auction from '../abis/Auction.json'
+import Aavegotchi from '../../../abis/Aavegotchi.json'
 
-
-class PlaceBid extends Component{
+class AavegotchiForm extends Component{
 
   constructor(props){
     super(props)
     this.state = {
       account : '',
-      productCount: 0,
-      products: [],
       loading: true
     }
 
     this.loadWeb3 = this.loadWeb3.bind(this)
-    this.createBid = this.createBid.bind(this)
+    //this.createBid = this.createBid.bind(this)
   }
 
   async componentWillMount(){
@@ -47,21 +44,21 @@ class PlaceBid extends Component{
     this.setState({ account: accounts[0] })
 
     const networkId = await web3.eth.net.getId()
-    const networkData = Auction.networks[networkId]
+    const networkData = Aavegotchi.networks[networkId]
 
     if(networkData){
-      const auction = new web3.eth.Contract(Auction.abi, networkData.address)
-      this.setState({ auction })
+      const auction = new web3.eth.Contract(Aavegotchi.abi, networkData.address)
+      this.setState({ aavegotchi })
 
-      const productCount = await auction.methods.productsCount().call()
+      const gotchiCounter = await aavegotchi.methods.gotchiCounter().call()
 
-      this.setState({ productCount })
+      this.setState({ gotchiCounter })
 
-      for(var i = 1; i <= productCount; i++){
-        const product = await auction.methods.products(i).call()
+      for(var i = 1; i <= gotchiCounter; i++){
+        const allGotchis = await auction.methods.Gotchis(i).call()
 
         this.setState({
-          products: [...this.state.products, product]
+          allGotchis: [...this.state.products, product]
         })
       }
 
@@ -72,13 +69,13 @@ class PlaceBid extends Component{
     }
   }
 
-  createBid( _productId, _amount, _name, _contact ){
-    this.state.auction.methods.bid(_productId, _amount, _name, _contact)
-    .send({ from: this.state.account })
-    .once('receipt', (receipt) => {
-      this.props.history.push('/allBids')
-    })
-  }
+  // createBid( _productId, _amount, _name, _contact ){
+  //   this.state.auction.methods.bid(_productId, _amount, _name, _contact)
+  //   .send({ from: this.state.account })
+  //   .once('receipt', (receipt) => {
+  //     this.props.history.push('/allBids')
+  //   })
+  // }
 
   render() {
     return(
@@ -138,4 +135,4 @@ class PlaceBid extends Component{
 }
 
 
-export default withRouter(PlaceBid);
+export default withRouter(AavegotchiForm);

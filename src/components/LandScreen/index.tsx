@@ -46,6 +46,7 @@ function LandRenderer(props: any) {
 
     let state: State = { scene, render, objects, cubeMaterials, mirrorX, modalOpen, selectedVoxel, selectedBlock, stairHalf, stairFacing }
     const [sqft, setSqft] = useState<number>()
+    const [tokenId, setTokenId] = useState<number>()
 
     function init(planeSize: number | undefined = 20) {
         planeToBoxRatio = standardPlaneSize / planeSize
@@ -338,6 +339,18 @@ function LandRenderer(props: any) {
                         <button type="button" placeholder="Phone" title="Show Demo" onClick={onSavetoLocal}>
                             <text>Save To local</text>
                         </button>
+                        <input
+                            // ref="sqftinput"
+                            onKeyPress={(event) => {
+                                if (!/[0-9]/.test(event.key)) {
+                                    event.preventDefault();
+                                }
+                            }}
+                            type="text"
+                            size={20}
+                            placeholder="Enter Token Id"
+                            onChange={onChange}
+                        />
                         <br />
                         <br />
                         <button type="button" placeholder="Phone" title="Show Demo" onClick={fetchLocal}>

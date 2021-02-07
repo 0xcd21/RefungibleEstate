@@ -8,7 +8,9 @@ contract EstateArea is ChainlinkClient {
     bytes32 private jobId;
     uint256 private fee;
 
-    uint public sqftArea;
+    uint public sqftArea = 0;
+    uint public pricePerSqft = 0;
+    uint public rent = 0;
     bytes32 public latestRequestId;
     bytes32 public tokenHash;
 
