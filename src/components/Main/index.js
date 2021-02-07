@@ -7,7 +7,7 @@ import CreateLand from '../CreateLand'
 import NavigationBar from '../NavigationBar'
 import LandRenderer from '../LandScreen'
 import Aavegotchi from '../Aavegotchi'
-
+import LandCrowdSale from '../LandCrowdSale'
 
 class Main extends Component {
 
@@ -20,6 +20,7 @@ class Main extends Component {
           <Route path="/create/land" component={CreateLand} />
           <Route path="/renderLand" component={LandRenderer} />
           <Route path="/aavegotchi" component={Aavegotchi} />
+          <Route path="/land/sale" component={LandCrowdSale} />
           <Redirect to="/home" />
         </Switch>
         {/* <Footer /> */}

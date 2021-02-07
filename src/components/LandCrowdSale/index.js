@@ -4,7 +4,7 @@ import { Button, Form, FormGroup, Label, Input, Col, FormFeedback, Spinner } fro
 
 import './style.css';
 
-// import CreateLandNft from '../abis/CreateLandNft.json'
+// import LandCrowdSale from '../abis/LandCrowdSale.json'
 
 
 class CreateLand extends Component {
@@ -17,9 +17,17 @@ class CreateLand extends Component {
       name: '',
       loading: true,
       symbol: '',
+      totalSqFt: '',
+      pricePerSqFt: '',
+      monthlyRent: '',
+      nftAddress: '',
       touched: {
         name: false,
-        symbol: false
+        symbol: false,
+        totalSqFt: false,
+        pricePerSqFt: false,
+        monthlyRent: false,
+        nftAddress: false
       }
     }
 
@@ -55,7 +63,7 @@ class CreateLand extends Component {
     // const networkData = Token.networks[networkId]
 
     // if (networkData) {
-    //   const contract = new web3.eth.Contract(CreateLandNft.abi, networkData.address)
+    //   const contract = new web3.eth.Contract(LandCrowdSale.abi, networkData.address)
     //   this.setState({ contract })
 
     this.setState({ loading: false })
@@ -83,16 +91,25 @@ class CreateLand extends Component {
     const errors = this.validate(
       this.state.name,
       this.state.symbol,
+      this.state.totalSqFt,
+      this.state.pricePerSqFt,
+      this.state.monthlyRent,
+      this.state.nftAddress
     )
 
-    if (errors.name !== '' && errors.symbol !== '') {
+    if (errors.name !== '' && errors.symbol !== '' && errors.totalSqFt !== '' && errors.pricePerSqFt !== '' &&
+      errors.monthlyRent !== '' && errors.nftAddress !== '') {
       return
     }
 
     // this.state.contract.methods._mint(
-    //   this.state.name
-    //   this.state.symbol,
-    //   1
+    //     this.state.name,
+    //     this.state.symbol,
+    //     Number(this.state.totalSqFt),
+    //     Number(this.state.pricePerSqFt),
+    //     Number(this.state.monthlyRent),
+    //     ''
+    //     this.state.nftAddress
     // ).send({ from: this.state.account })
     //   .once('receipt', (receipt) => {
     //     this.setState({ loading: false, loadingMessage: '' })
@@ -101,10 +118,11 @@ class CreateLand extends Component {
     //   })
   }
 
-  validate(name, symbol) {
+  validate(name, symbol, nftAddress) {
     const errors = {
       name: '',
-      symbol: ''
+      symbol: '',
+      nftAddress: '',
     }
 
     if (this.state.touched.name && name.length < 3)
@@ -116,6 +134,9 @@ class CreateLand extends Component {
       errors.symbol = 'Land symbol should be >= 3 characters'
     else if (this.state.touched.symbol && symbol.length > 20)
       errors.symbol = 'Land symbol should be <= 10 characters'
+
+    if (this.state.touched.nftAddress && nftAddress === '')
+      errors.symbol = 'Address cannot be null'
 
     return errors
   }
@@ -147,14 +168,14 @@ class CreateLand extends Component {
       <div className="container-fluid">
         <div className="row forming">
           <Form onSubmit={this.handleSubmit} className="mt-5 form-container col-12 col-md-9">
-            <h2 className="text-center">Create Land</h2>
+            <h2 className="text-center">Mint crowd sale</h2>
             <br />
             <FormGroup row>
               <Label htmlFor="landname" md={2}>Land name</Label>
               <Col md={10}>
                 <Input className='input' type="text" id="landname" name="landname"
                   placeholder="Enter land's name"
-                  value={this.state.name || 'deep'}
+                  value={this.state.name}
                   valid={errors.name === ''}
                   invalid={errors.name !== ''}
                   onBlur={this.handleBlur('name')}
@@ -167,12 +188,51 @@ class CreateLand extends Component {
               <Col md={10}>
                 <Input className='input' type="text" id="landsymbol" name="landsymbol"
                   placeholder="Enter land's symbol"
-                  value={this.state.symbol || 'deep'}
+                  value={this.state.symbol}
                   valid={errors.symbol === ''}
                   invalid={errors.symbol !== ''}
                   onBlur={this.handleBlur('symbol')}
                   onChange={this.handleInputChange} />
                 <FormFeedback>{errors.symbol}</FormFeedback>
+              </Col>
+            </FormGroup>
+            <FormGroup row>
+              <Label htmlFor="symbol" md={2}>Total sq. ft</Label>
+              <Col md={10}>
+                <Input className='input' type="text" id="totalSqFt" name="totalSqFt"
+                  placeholder="Enter land's total sq. ft"
+                  value={this.state.totalSqFt}
+                  valid={errors.totalSqFt === ''}
+                  invalid={errors.totalSqFt !== ''}
+                  onBlur={this.handleBlur('totalSqFt')}
+                  onChange={this.handleInputChange} />
+                <FormFeedback>{errors.totalSqFt}</FormFeedback>
+              </Col>
+            </FormGroup>
+            <FormGroup row>
+              <Label htmlFor="symbol" md={2}>Price per sq. ft</Label>
+              <Col md={10}>
+                <Input className='input' type="text" id="pricePerSqFt" name="pricePerSqFt"
+                  placeholder="Enter land's price per sq. ft"
+                  value={this.state.pricePerSqFt}
+                  valid={errors.pricePerSqFt}
+                  invalid={errors.pricePerSqFt !== ''}
+                  onBlur={this.handleBlur('pricePerSqFt')}
+                  onChange={this.handleInputChange} />
+                <FormFeedback>{errors.pricePerSqFt}</FormFeedback>
+              </Col>
+            </FormGroup>
+            <FormGroup row>
+              <Label htmlFor="symbol" md={2}>Monthly rent</Label>
+              <Col md={10}>
+                <Input className='input' type="text" id="monthyRent" name="monthlyRent"
+                  placeholder="Enter land's monthlyRent"
+                  value={this.state.monthlyRent}
+                  valid={errors.monthlyRent}
+                  invalid={errors.monthlyRent !== ''}
+                  onBlur={this.handleBlur('monthlyRent')}
+                  onChange={this.handleInputChange} />
+                <FormFeedback>{errors.monthlyRent}</FormFeedback>
               </Col>
             </FormGroup>
             <FormGroup row>
