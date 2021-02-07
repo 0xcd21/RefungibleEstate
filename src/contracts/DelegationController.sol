@@ -2,7 +2,7 @@
 
 pragma solidity >=0.6.12;
 
-import {ERC20Token as ERC20} from "./token/ERC20Token.sol";
+import {OwnableERC20Token as ERC20} from "./token/OwnableERC20Token.sol";
 import {
     OwnableERC20Token as OwnableERC20Token
 } from "./token/OwnableERC20Token.sol";
@@ -112,6 +112,10 @@ contract DelegationController {
         detail.amountBorrowed = detail.amountBorrowed - amount;
         detail.borrowers[msg.sender] -= amount;
 
-        ERC20(token).transferFrom(msg.sender, address(this), amount);
+        ERC20(token).transferFrom(
+            msg.sender,
+            address(this),
+            ((amount * detail.interestRate) / 100)
+        );
     }
 }
