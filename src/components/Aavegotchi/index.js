@@ -35,13 +35,13 @@ class Aavegotchi extends Component {
 
     // Load AavegotchiFacet
     const aavegotchiData = AavegotchiFacet.networks[networkId]
-    if(aavegotchiData) {
+    if (aavegotchiData) {
       const aavegotchiFacet = new web3.eth.Contract(AavegotchiFacet.abi, aavegotchiData.address)
       this.setState({ aavegotchiFacet })
       let stakingBalance = await aavegotchiFacet.methods.stakingBalance(this.state.account).call()
       let ghstEarned = await aavegotchiFacet.methods.ghstEarned(this.state.account).call()
 
-      this.setState({ stakingBalance: stakingBalance.toString(), ghstEarned: ghstEarned.toString()})
+      this.setState({ stakingBalance: stakingBalance.toString(), ghstEarned: ghstEarned.toString() })
     } else {
       window.alert('AavegotchiFacet contract not deployed to detected network.')
     }
@@ -117,7 +117,7 @@ class Aavegotchi extends Component {
 
   render() {
     let content
-    if(this.state.loading) {
+    if (this.state.loading) {
       content = <p id="loader" className="text-center">Loading...</p>
     } else {
       content = <Main
@@ -131,12 +131,21 @@ class Aavegotchi extends Component {
       />
     }
 
+    const generateRandomNumber = () => Math.floor(Math.random() * 2) + 2;
+
     return (
-      <div>
+      <div className="col-md-6">
         {/* <h2>{account={this.state.account} }</h2> */}
         <div className="container-fluid mt-5">
           <div className="row">
-            <main role="main" className="col-lg-12 ml-auto mr-auto" style={{ maxWidth: '600px' }}>
+            <main role="main" className="col-4 mt-5 mb-0 ml-auto mr-auto" style={{ maxWidth: '600px', height: '400px' }}>
+              <div className="content mr-auto ml-auto">
+
+                <img src={require(`./${generateRandomNumber()}.png`)} style={{ width: '100%', height: '300px' }} />
+
+              </div>
+            </main>
+            <main role="main" className="col-6 ml-auto mr-auto" style={{ maxWidth: '600px' }}>
               <div className="content mr-auto ml-auto">
                 <a
                   href="http://www.dappuniversity.com/bootcamp"
