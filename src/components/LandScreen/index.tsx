@@ -257,7 +257,7 @@ function LandRenderer(props: any) {
     const getIntersectPosition = (intersect: THREE.Intersection): THREE.Vector3 => {
         // @ts-ignore
         const face = intersect.face as THREE.Face3
-        intersect.point.add(face.normal).divideScalar(50).floor().multiplyScalar(50).addScalar(25)
+        intersect.point.add(face.normal).divideScalar(50 * planeToBoxRatio).floor().multiplyScalar(50 * planeToBoxRatio).addScalar(25 * planeToBoxRatio)
         return intersect.point
     }
 
