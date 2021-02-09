@@ -1,7 +1,6 @@
 pragma solidity >=0.5.0 <0.8.0;
 
-import "@chainlink/contracts/v0.6/ChainlinkClient.sol";
-
+import "@chainlink/contracts/src/v0.6/ChainlinkClient.sol";
 
 contract EstateArea is ChainlinkClient {
 
@@ -9,7 +8,9 @@ contract EstateArea is ChainlinkClient {
     bytes32 private jobId;
     uint256 private fee;
 
-    uint public sqftArea;
+    uint public sqftArea = 0;
+    uint public pricePerSqft = 0;
+    uint public rent = 0;
     bytes32 public latestRequestId;
     bytes32 public tokenHash;
 

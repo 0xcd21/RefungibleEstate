@@ -4,9 +4,9 @@ const EstateArea = artifacts.require("EstateArea")
 
 
 module.exports = async function (deployer) {
-  await deployer.deploy(LandCrowdSale);
-  const landSale = await LandCrowdSale.deployed();
+  // await deployer.deploy(LandCrowdSale);
+  // const landSale = await LandCrowdSale.deployed();
 
-  await deployer.deploy(Business, landSale.address);
-  await deployer.deploy(EstateArea);
+  // await deployer.deploy(Business, landSale.address);
+  // await deployer.deploy(EstateArea);
 };

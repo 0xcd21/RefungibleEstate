@@ -1,0 +1,25 @@
+.navbar {
+  color: white;
+  background-color: black;
+}
+
+.navbar a{
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.navbar a:hover{
+    color: gray;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.logo-app {
+  width: 20vw;
+  height: 100%;
+  max-width: 20;
+  max-height: 100%;
+}

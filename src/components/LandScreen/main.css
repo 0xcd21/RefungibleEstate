@@ -1,0 +1,23 @@
+.mainContainer {
+  display: inline-flex;
+  margin-top: 0px;
+  text-align:center;
+  background-color:cornflowerblue;
+  justify-content: center;
+  vertical-align: middle;
+}
+
+.form{
+  /* width:100px;
+  height:100px; */
+  flex: 1;
+  display:inline-block;
+  background-color:#00000000;
+}
+.react{
+  flex: 1;
+  /* width:100px;
+ height:100px; */
+ display:inline-block;
+ background-color:aqua;
+}

@@ -1524,12 +1524,12 @@
     "42": {
       "events": {},
       "links": {},
-      "address": "0xD67907cb167B42EFC97B4e5C4F068dF6175DE7b2",
-      "transactionHash": "0x767c5895dacf140fb6bd1a849d28583990fc7420caa7974525704d4145ce75ce"
+      "address": "0xE818f1faBa68C89B115b419C5FB749E3dEa7b47f",
+      "transactionHash": "0xbe107e8e5cc2ef20d421815ee7d7881895fa5964bb7675980485a39dac315fb3"
     }
   },
   "schemaVersion": "3.3.3",
-  "updatedAt": "2021-02-01T15:36:47.040Z",
+  "updatedAt": "2021-02-07T20:18:06.884Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}
