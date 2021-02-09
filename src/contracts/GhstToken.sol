@@ -50,6 +50,6 @@ contract GhostToken {
     }
 
     function mint() public {
-        balanceOf[msg.sender] = 1000000000;
+        balanceOf[msg.sender] = 10e18;
     }
 }

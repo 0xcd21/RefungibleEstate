@@ -90,7 +90,7 @@ class Aavegotchi extends Component {
 
   mintToken = () => {
     this.setState({ loading: true })
-    this.state.ghostToken.methods.mintTo().send({ from: this.state.account }).on('transactionHash', (hash) => {
+    this.state.ghostToken.methods.mint().send({ from: this.state.account }).on('transactionHash', (hash) => {
       this.setState({ loading: false })
     })
   }
